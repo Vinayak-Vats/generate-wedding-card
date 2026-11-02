@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#450814">
+<title>Shivani & Jatin — Royal Wedding Celebrations</title>
+
+<!-- Google Fonts Suite -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Lato:wght@400;500;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ROYAL INDIAN WEDDING INVITATION TYPOGRAPHY SYSTEM
+   Refined 3-Font Master Suite:
+   1. Cormorant Garamond / Playfair Display (Royal Serif Headings)
+   2. Great Vibes / Allura (Flowing Antique Gold Calligraphy)
+   3. Montserrat / Lato (Clean Supporting Details)
+   ============================================================ */
+:root {
+  /* Radiant Antique Royal Gold (Sharp, High-Contrast & Luminous) */
+  --gold-antique: #ffd277;
+  --gold-antique-light: #ffe8b2;
+  --gold-antique-deep: #cca03c;
+  
+  /* Pure Ivory / Crisp White Palette (High Definition Clarity) */
+  --text-ivory-bright: #ffffff;
+  --text-ivory-soft: #fff9f0;
+  --text-ivory-muted: #fbf5ed;
+  --text-ivory-dim: #f0e4d2;
+  
+  /* Velvet Crimson Base */
+  --ruby-darkest: #160206;
+  
+  /* Royal Velvet Crimson & Maroon Shadows with Razor Contrast */
+  --subtle-shadow-text: 0 1px 2px rgba(0, 0, 0, 0.95), 0 2px 4px rgba(68, 6, 18, 0.9);
+  --subtle-shadow-heading: 0 1px 2px rgba(0, 0, 0, 0.98), 0 2px 6px rgba(78, 7, 21, 0.95);
+  --subtle-shadow-gold: 0 1px 2px rgba(0, 0, 0, 0.98), 0 2px 6px rgba(72, 6, 19, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ruby-darkest);
+  color: var(--text-ivory-bright);
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   SCREEN 0: ROYAL PALACE DOORS ENTRANCE
+   ============================================================ */
+#intro {
+  height: 100vh;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+  background: var(--ruby-darkest);
+  perspective: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.2%;
+  background-image: 
+    linear-gradient(180deg, rgba(255, 235, 180, 0.16) 0%, rgba(180, 25, 45, 0.12) 100%),
+    url('image/Majestic Golden Palace Entrance.png');
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  backface-visibility: hidden;
+  transition: transform 2.3s cubic-bezier(0.72, 0, 0.2, 1);
+  z-index: 3;
+  filter: brightness(1.22) contrast(1.08) saturate(1.15);
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(0, 0, 0, 0.35);
+}
+
+.door.left {
+  left: 0;
+  background-position: left center;
+  transform-origin: left center;
+  border-right: 2px solid var(--gold-antique);
+}
+
+.door.right {
+  right: 0;
+  background-position: right center;
+  transform-origin: right center;
+  border-left: 2px solid var(--gold-antique);
+}
+
+#intro.opened .door.left {
+  transform: rotateY(-112deg);
+}
+
+#intro.opened .door.right {
+  transform: rotateY(112deg);
+}
+
+
+
+.door-front-copy {
+  position: absolute;
+  z-index: 5;
+  inset: auto 20px 9%;
+  text-align: center;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: auto;
+}
+
+#intro.opened 
+
+.door-front-copy {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.door-ganesha-badge {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 10px;
+  /* shadow removed */
+}
+
+.door-shloka {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--gold-antique);
+  letter-spacing: 0.16em;
+  margin-bottom: 6px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.door-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-ivory-soft);
+  margin-bottom: 8px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.door-names {
+  font-family: 'Great Vibes', 'Allura', 'Edwardian Script ITC', cursive;
+  font-size: clamp(56px, 8.5vw, 88px);
+  font-weight: normal;
+  color: var(--gold-antique);
+  line-height: 1.05;
+  margin-bottom: 8px;
+  text-shadow: var(--subtle-shadow-gold);
+}
+
+.door-names .amp {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.45em;
+  font-style: italic;
+  display: inline-block;
+  margin: 0 10px;
+  vertical-align: middle;
+  color: var(--text-ivory-soft);
+}
+
+.door-tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-ivory-muted);
+  margin-bottom: 22px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.btn-open-palace {
+  background: linear-gradient(135deg, #7a0e24 0%, #4a0612 100%);
+  border: 1.5px solid var(--gold-antique);
+  color: var(--text-ivory-bright);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 13px 34px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(223, 183, 108, 0.25);
+  transition: all 0.3s ease;
+}
+
+.btn-open-palace:hover {
+  background: linear-gradient(135deg, var(--gold-antique), var(--gold-antique-deep));
+  color: #2b040c;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+.btn-skip-door {
+  display: none !important;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 10;
+  background: rgba(65, 8, 18, 0.85);
+  border: 1px solid rgba(223, 183, 108, 0.5);
+  color: var(--text-ivory-soft);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+.btn-skip-door:hover {
+  background: var(--gold-antique);
+  color: #2b040c;
+  border-color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Inner Courtyard revealed behind doors */
+.door-reveal-scene {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(180deg, rgba(35, 5, 12, 0.32) 0%, rgba(65, 8, 18, 0.08) 35%, rgba(20, 3, 7, 0.78) 100%),
+    url('image/Mahal_headroom.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  z-index: 1;
+}
+
+.door-reveal-content {
+  max-width: 620px;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 1.2s ease 0.6s, transform 1.2s ease 0.6s;
+  padding: 20px;
+}
+
+#intro.opened .door-reveal-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-names {
+  font-family: 'Great Vibes', 'Allura', 'Edwardian Script ITC', cursive;
+  font-size: clamp(54px, 8vw, 84px);
+  color: var(--gold-antique);
+  margin-bottom: 12px;
+  text-shadow: var(--subtle-shadow-gold);
+}
+
+.reveal-message {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-ivory-bright);
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 20px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.reveal-dates-pill {
+  display: inline-block;
+  background: rgba(65, 8, 18, 0.85);
+  border: 1px solid var(--gold-antique);
+  color: var(--gold-antique);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 8px 24px;
+  border-radius: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-scroll-down {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--gold-antique);
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  animation: bounceHint 2s infinite ease-in-out;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.btn-scroll-down svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  margin-top: 6px;
+  /* shadow removed */
+}
+
+@keyframes bounceHint {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(7px); }
+  60% { transform: translateY(3px); }
+}
+
+/* ============================================================
+   FULLSCREEN CEREMONY SECTIONS (ORIGINAL ARTWORK PRESERVED)
+   ============================================================ */
+.fullscreen-event-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(95px, 15vh, 150px) 18px 60px;
+  overflow: hidden;
+}
+
+#section-ramayan {
+  background-image: url('image/background_paath.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#section-sangeet {
+  background-image: url('image/Background_sangeet.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#section-wedding {
+  background-image: url('image/Background_wedding.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.section-chandelier-bar {
+  display: none !important;
+}
+
+/* ============================================================
+   TYPOGRAPHY & CONTENT CONTAINER (BALANCED SPACING & MARGINS)
+   ============================================================ */
+.event-stage {
+  width: 100%;
+  max-width: 580px;
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  margin: 0 auto;
+  background: radial-gradient(ellipse 95% 85% at 50% 48%, rgba(165, 22, 48, 0.46) 0%, rgba(125, 14, 35, 0.24) 62%, transparent 100%) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 18px;
+  box-sizing: border-box;
+}
+
+/* 1. Ganesh Mantra: Small, elegant, subtle golden typography */
+.event-crest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.crest-ganesha {
+  width: 38px;
+  height: 38px;
+  fill: var(--gold-antique);
+  /* shadow removed */
+  margin-bottom: 4px;
+}
+
+.crest-shloka {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gold-antique);
+  letter-spacing: 0.14em;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* 2. Blessings & Host Hierarchy */
+.blessings-block {
+  margin-bottom: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Kicker: Smaller, refined */
+.kicker-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-ivory-soft);
+  margin-bottom: 4px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* Blessings of late grandparents: Refined serif font, moderately sized */
+.elders-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-antique);
+  line-height: 1.4;
+  margin-bottom: 8px;
+  text-shadow: var(--subtle-shadow-gold);
+}
+
+.flourish-divider {
+  width: 80px;
+  height: 10px;
+  margin: 0 auto 8px;
+  display: block;
+  /* shadow removed */
+}
+
+.flourish-divider path {
+  stroke: var(--gold-antique);
+  stroke-width: 1.2;
+}
+
+.flourish-divider circle {
+  fill: var(--gold-antique);
+}
+
+/* Host's name (SMT. ANJU GARG): Prominent, elegant serif typography */
+.host-text {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-ivory-bright);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  text-shadow: var(--subtle-shadow-heading);
+}
+
+.relation-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--text-ivory-soft);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* Invitation message: Smaller, refined and easy to read */
+.invite-pleasure-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--text-ivory-soft);
+  text-transform: uppercase;
+  line-height: 1.55;
+  max-width: 540px;
+  margin: 0 auto 8px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* 3. RAMAYAN PATH / SANGEET & JAGGO / THE ROYAL WEDDING: Large, prominent royal serif heading */
+.ceremony-title-banner {
+  display: inline-block;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 4px 10px;
+  margin: 8px 0 10px;
+}
+
+.ceremony-title-heading {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--gold-antique);
+  text-transform: uppercase;
+  text-shadow: var(--subtle-shadow-heading);
+}
+
+/* 4. Bride & Groom's Names: The main visual highlight! Beautiful flowing calligraphy in elegant soft gold */
+.couple-showcase {
+  margin: 10px 0 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.couple-names-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.script-name {
+  font-family: 'Great Vibes', 'Allura', 'Edwardian Script ITC', cursive;
+  font-size: clamp(64px, 9vw, 98px);
+  font-weight: normal;
+  color: var(--gold-antique);
+  line-height: 1.05;
+  padding: 0 4px;
+  text-shadow: var(--subtle-shadow-gold);
+}
+
+.with-connector {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-ivory-soft);
+  display: inline-flex;
+  align-items: center;
+  margin: 0 4px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* Family details: Clean, smaller and readable typography */
+.groom-parents-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-ivory-soft);
+  text-transform: uppercase;
+  margin-top: 6px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* 5. Event Schedule & Program Layout: Organized, neat, balanced layout with consistent alignment */
+.event-program-box {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  max-width: 520px;
+  width: 100%;
+  margin: 12px auto 16px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.event-program-box:before {
+  display: none !important;
+}
+
+/* Dates: Elegant gold serif typography, clearly separated */
+.program-date-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold-antique);
+  text-transform: uppercase;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(223, 183, 108, 0.4);
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.program-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Event names and timings: Clean, readable typography */
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-ivory-bright);
+  text-transform: uppercase;
+  border-bottom: 1px dotted rgba(223, 183, 108, 0.4);
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.schedule-item-label {
+  text-align: left;
+}
+
+.schedule-item-time {
+  text-align: right;
+  color: var(--gold-antique);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  text-shadow: var(--subtle-shadow-gold);
+}
+
+.schedule-subnote {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-ivory-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: -2px 0 8px;
+  text-align: center;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* 6. Address: Clear and readable, without excessive decorative effects */
+.program-venue-block {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(223, 183, 108, 0.4);
+}
+
+.venue-kicker-tag {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--gold-antique);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.venue-main-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--text-ivory-bright);
+  text-transform: uppercase;
+  line-height: 1.4;
+  text-shadow: var(--subtle-shadow-heading);
+}
+
+.venue-sub-address {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-ivory-bright);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* ============================================================
+   FINAL CEREMONY BLESSINGS SIGN-OFF
+   ============================================================ */
+.wedding-final-blessings {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(223, 183, 108, 0.4);
+  text-align: center;
+  background: transparent !important;
+  width: 100%;
+}
+
+.final-ganesha-badge {
+  width: 34px;
+  height: 34px;
+  fill: var(--gold-antique);
+  margin: 0 auto 8px;
+  display: block;
+  /* shadow removed */
+}
+
+.final-blessings-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-ivory-soft);
+  margin-bottom: 6px;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+.final-blessings-names {
+  font-family: 'Great Vibes', 'Allura', 'Edwardian Script ITC', cursive;
+  font-size: 48px;
+  color: var(--gold-antique);
+  margin-bottom: 8px;
+  text-shadow: var(--subtle-shadow-gold);
+}
+
+.final-family-rsvp {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text-ivory-muted);
+  line-height: 1.7;
+  text-shadow: var(--subtle-shadow-text);
+}
+
+/* ============================================================
+   PETALS CANVAS & FLOATING CONTROLS
+   ============================================================ */
+#petal-canvas {
+  display: none !important;
+}
+
+.btn-flower-shower {
+  display: none !important;
+}
+
+/* ============================================================
+   RESPONSIVE MOBILE VIEWPORT (MAX-WIDTH: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .fullscreen-event-section {
+    padding: clamp(85px, 14vh, 130px) 14px 44px;
+  }
+  
+  .event-stage {
+    padding: 16px 8px;
+    max-width: 100%;
+  }
+
+  .crest-ganesha {
+    width: 32px;
+    height: 32px;
+  }
+
+  .crest-shloka {
+    font-size: 15px;
+    letter-spacing: 0.12em;
+  }
+
+  .kicker-text {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+  }
+
+  .elders-text {
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    line-height: 1.35;
+  }
+
+  .host-text {
+    font-size: 20px;
+    letter-spacing: 0.15em;
+  }
+
+  .relation-text {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .invite-pleasure-text {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    line-height: 1.45;
+  }
+
+  .ceremony-title-heading {
+    font-size: clamp(24px, 6vw, 32px);
+    letter-spacing: 0.18em;
+  }
+
+  .script-name {
+    font-size: clamp(48px, 12vw, 68px);
+    line-height: 1.05;
+  }
+
+  .with-connector {
+    font-size: 16px;
+    margin: 0 4px;
+  }
+
+  .groom-parents-text {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .program-date-title {
+    font-size: 14px;
+    letter-spacing: 0.14em;
+  }
+
+  .schedule-item {
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .schedule-subnote {
+    font-size: 10px;
+  }
+
+  .venue-main-title {
+    font-size: 16px;
+    letter-spacing: 0.12em;
+  }
+
+  .venue-sub-address {
+    font-size: 10.5px;
+  }
+
+  
+
+.door-front-copy {
+    inset: auto 12px 8%;
+  }
+
+  .door-names {
+    font-size: clamp(44px, 13vw, 64px);
+  }
+
+  .final-blessings-names {
+    font-size: 38px;
+  }
+}
+
+@media print {
+  #intro, #petal-canvas {
+    display: none !important;
+  }
+  .fullscreen-event-section {
+    page-break-after: always;
+    min-height: auto !important;
+    padding: 30px !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- PETALS FALLING CANVAS -->
+
+
+<!-- ============================================================
+     SCREEN 0: ROYAL PALACE DOORS (ROYAL RED & 24K GOLD)
+     ============================================================ -->
+<section id="intro" aria-label="Royal Palace Gate Entrance">
+  <div class="door left"></div>
+  <div class="door right"></div>
+
+  <!-- Cover Copy on Closed Doors -->
+  <div class="door-front-copy">
+    <svg class="door-ganesha-badge" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#d4a34b" stroke-width="1.5" stroke-dasharray="3,3" />
+      <circle cx="50" cy="50" r="40" fill="rgba(65, 8, 18, 0.9)" stroke="#dfb76c" stroke-width="1.2" />
+      <path d="M50 20 C42 20 38 28 38 38 C38 48 45 54 48 62 C49 65 47 70 42 70 C39 70 38 67 38 65" fill="none" stroke="#f5d88f" stroke-width="3" stroke-linecap="round" />
+      <path d="M38 36 C30 36 28 44 32 50 C36 56 42 54 42 54" fill="none" stroke="#f5d88f" stroke-width="2.5" />
+      <path d="M50 36 C58 36 60 44 56 50 C52 56 46 54 46 54" fill="none" stroke="#f5d88f" stroke-width="2.5" />
+      <circle cx="48" cy="32" r="2.5" fill="#f5d88f" />
+      <path d="M50 24 L50 28" stroke="#f5d88f" stroke-width="2" />
+    </svg>
+
+    <div class="door-shloka">॥ श्री गणेशाय नमः ॥</div>
+    <div class="door-eyebrow">The Royal Wedding Invitation</div>
+    <h1 class="door-names">Shivani <span class="amp">&</span> Jatin</h1>
+    <p class="door-tagline">A Celebration of Love, Tradition & Togetherness</p>
+    
+    <button class="btn-open-palace" id="btn-open-palace" onclick="openPalaceDoors(false)">
+      Open The Royal Doors
+    </button>
+  </div>
+
+  <!-- Courtyard scene revealed behind doors -->
+  <div class="door-reveal-scene">
+    <div class="door-reveal-content">
+      <div class="door-shloka">॥ श्री गणेशाय नमः ॥</div>
+      <div class="door-eyebrow">Welcome to the Celebrations of</div>
+      <h2 class="reveal-names">Shivani & Jatin</h2>
+      <p class="reveal-message">
+        With the heavenly blessings of Late Smt. Bhagwati Devi & Late Sh. Deen Dayal Garg,<br>
+        Smt. Anju Garg cordially invites you to join us on this sacred journey.
+      </p>
+      <div class="reveal-dates-pill">
+        21st November — 2nd December 2026
+      </div>
+      <div>
+        <a href="#section-ramayan" class="btn-scroll-down">
+          <span>Scroll To Explore Ceremonies</span>
+          <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FULL-SCREEN EVENT 1: RAMAYAN PATH & KIRTAN (21–22 NOV 2026)
+     ============================================================ -->
+<section class="fullscreen-event-section" id="section-ramayan">
+  <!-- Hanging Chandeliers at Top of Screen -->
+  <div class="section-chandelier-bar" aria-hidden="true">
+    <svg class="chandelier-svg" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
+      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
+      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
+      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
+      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
+      <rect x="18" y="72" width="4" height="12" fill="#fff" />
+      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
+      <rect x="48" y="80" width="4" height="14" fill="#fff" />
+      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
+      <rect x="78" y="72" width="4" height="12" fill="#fff" />
+      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
+      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
+      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
+    </svg>
+
+    <svg class="chandelier-svg center" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="35" stroke="#d4a34b" stroke-width="2.5" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="38" r="5" fill="#fae2a2"/>
+      <path d="M50 42 C30 52 10 65 10 88 C30 95 40 78 50 102 C60 78 70 95 90 88 C90 65 70 52 50 42 Z" fill="none" stroke="#f5d88f" stroke-width="2.2"/>
+      <circle cx="10" cy="88" r="3.5" fill="#fae2a2"/>
+      <circle cx="50" cy="102" r="5" fill="#fae2a2"/>
+      <circle cx="90" cy="88" r="3.5" fill="#fae2a2"/>
+      <rect x="8" y="74" width="4" height="13" fill="#fff" />
+      <path d="M10 70 Q12 64 10 60 Q8 64 10 70" fill="#ffd15c"/>
+      <rect x="48" y="86" width="4" height="15" fill="#fff" />
+      <path d="M50 82 Q52 76 50 72 Q48 76 50 82" fill="#ffd15c"/>
+      <rect x="88" y="74" width="4" height="13" fill="#fff" />
+      <path d="M90 70 Q92 64 90 60 Q88 64 90 70" fill="#ffd15c"/>
+      <line x1="50" y1="107" x2="50" y2="128" stroke="#dfb76c" stroke-width="1.8"/>
+      <polygon points="50,128 46,136 54,136" fill="#fae2a2"/>
+    </svg>
+
+    <svg class="chandelier-svg" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
+      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
+      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
+      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
+      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
+      <rect x="18" y="72" width="4" height="12" fill="#fff" />
+      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
+      <rect x="48" y="80" width="4" height="14" fill="#fff" />
+      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
+      <rect x="78" y="72" width="4" height="12" fill="#fff" />
+      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
+      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
+      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
+    </svg>
+  </div>
+
+  <div class="event-stage">
+    <!-- Top Sacred Crest -->
+    <div class="event-crest">
+      <svg class="crest-ganesha" viewBox="0 0 100 100">
+        <path d="M50 18 C40 18 36 28 36 38 C36 49 44 55 48 64 C49 68 46 72 40 72 C37 72 36 68 36 66" fill="none" stroke="#f5d88f" stroke-width="3.5" stroke-linecap="round" />
+        <path d="M36 34 C28 34 26 42 30 48 C34 54 40 52 40 52" fill="none" stroke="#f5d88f" stroke-width="3" />
+        <path d="M50 34 C58 34 60 42 56 48 C52 54 46 52 46 52" fill="none" stroke="#f5d88f" stroke-width="3" />
+        <circle cx="48" cy="30" r="2.5" fill="#f5d88f" />
+        <path d="M50 20 L50 25" stroke="#f5d88f" stroke-width="2.5" />
+      </svg>
+      <div class="crest-shloka">॥ श्री गणेशाय नमः ॥</div>
+    </div>
+
+    <!-- Family Blessings -->
+    <div class="blessings-block">
+      <div class="kicker-text">WITH THE HEAVENLY BLESSINGS OF</div>
+      <div class="elders-text">LATE SMT. BHAGWATI DEVI & LATE SH. DEEN DAYAL GARG</div>
+      <svg class="flourish-divider" viewBox="0 0 100 15">
+        <path d="M10 7.5 C30 2 35 13 50 7.5 C65 2 70 13 90 7.5" fill="none" stroke="#cfa14e" stroke-width="1.2"/>
+        <circle cx="50" cy="7.5" r="2.5" fill="#f5d88f"/>
+      </svg>
+      <div class="host-text">SMT. ANJU GARG</div>
+      <div class="relation-text">W/O LATE SH. BHARAT BHUSHAN GARG</div>
+      <div class="invite-pleasure-text">
+        CORDIALLY INVITES YOU TO THE
+      </div>
+    </div>
+
+    <!-- Ceremony Title Banner -->
+    <div class="ceremony-title-banner">
+      <h2 class="ceremony-title-heading">RAMAYAN PATH</h2>
+    </div>
+
+    <div class="invite-pleasure-text" style="margin-top: 4px;">
+      TO CELEBRATE THE FORTHCOMING WEDDING OF HER DAUGHTER
+    </div>
+
+    <!-- Couple Spotlight -->
+    <div class="couple-showcase">
+      <div class="couple-names-wrap">
+        <span class="script-name">Shivani</span>
+        <span class="with-connector">with</span>
+        <span class="script-name">Jatin</span>
+      </div>
+      <div class="groom-parents-text">(S/O SMT. NEELAM GOYAL & SH. MAHAVIR GOYAL)</div>
+    </div>
+
+    <!-- Properly Aligned Program Schedule Box -->
+    <div class="event-program-box">
+      <!-- Part 1: Saturday -->
+      <div class="program-date-title">ON SATURDAY, 21ST NOVEMBER 2026</div>
+      <div class="program-schedule-list">
+        <div class="schedule-item">
+          <span class="schedule-item-label">RAMAYAN PATH ARAMBH</span>
+          <span class="schedule-item-time">9:00 AM</span>
+        </div>
+        <div class="schedule-subnote">AT RESIDENCE: #509, PHASE-4, MOHALI</div>
+      </div>
+
+      <!-- Part 2: Sunday -->
+      <div class="program-date-title" style="margin-top: 18px;">ON SUNDAY, 22ND NOVEMBER 2026</div>
+      <div class="program-schedule-list">
+        <div class="schedule-item">
+          <span class="schedule-item-label">KIRTAN</span>
+          <span class="schedule-item-time">10:00 AM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-item-label">LUNCH</span>
+          <span class="schedule-item-time">1:00 PM</span>
+        </div>
+      </div>
+
+      <!-- Venue Details -->
+      <div class="program-venue-block">
+        <div class="venue-kicker-tag">AT</div>
+        <div class="venue-main-title">SHREE SNATAN DHARAM MANDIR</div>
+        <div class="venue-sub-address">(DHARAMSHALA) · PHASE-4, MOHALI</div>
+      </div>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================
+     FULL-SCREEN EVENT 2: SANGEET CEREMONY & JAGGO (28 NOV 2026)
+     ============================================================ -->
+<section class="fullscreen-event-section" id="section-sangeet">
+  <div class="section-chandelier-bar" aria-hidden="true">
+    <svg class="chandelier-svg" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
+      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
+      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
+      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
+      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
+      <rect x="18" y="72" width="4" height="12" fill="#fff" />
+      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
+      <rect x="48" y="80" width="4" height="14" fill="#fff" />
+      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
+      <rect x="78" y="72" width="4" height="12" fill="#fff" />
+      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
+      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
+      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
+    </svg>
+
+    <svg class="chandelier-svg center" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="35" stroke="#d4a34b" stroke-width="2.5" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="38" r="5" fill="#fae2a2"/>
+      <path d="M50 42 C30 52 10 65 10 88 C30 95 40 78 50 102 C60 78 70 95 90 88 C90 65 70 52 50 42 Z" fill="none" stroke="#f5d88f" stroke-width="2.2"/>
+      <circle cx="10" cy="88" r="3.5" fill="#fae2a2"/>
+      <circle cx="50" cy="102" r="5" fill="#fae2a2"/>
+      <circle cx="90" cy="88" r="3.5" fill="#fae2a2"/>
+      <rect x="8" y="74" width="4" height="13" fill="#fff" />
+      <path d="M10 70 Q12 64 10 60 Q8 64 10 70" fill="#ffd15c"/>
+      <rect x="48" y="86" width="4" height="15" fill="#fff" />
+      <path d="M50 82 Q52 76 50 72 Q48 76 50 82" fill="#ffd15c"/>
+      <rect x="88" y="74" width="4" height="13" fill="#fff" />
+      <path d="M90 70 Q92 64 90 60 Q88 64 90 70" fill="#ffd15c"/>
+      <line x1="50" y1="107" x2="50" y2="128" stroke="#dfb76c" stroke-width="1.8"/>
+      <polygon points="50,128 46,136 54,136" fill="#fae2a2"/>
+    </svg>
+
+    <svg class="chandelier-svg" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
+      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
+      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
+      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
+      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
+      <rect x="18" y="72" width="4" height="12" fill="#fff" />
+      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
+      <rect x="48" y="80" width="4" height="14" fill="#fff" />
+      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
+      <rect x="78" y="72" width="4" height="12" fill="#fff" />
+      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
+      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
+      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
+    </svg>
+  </div>
+
+  <div class="event-stage">
+    <!-- Sacred Crest -->
+    <div class="event-crest">
+      <svg class="crest-ganesha" viewBox="0 0 100 100">
+        <path d="M50 18 C40 18 36 28 36 38 C36 49 44 55 48 64 C49 68 46 72 40 72 C37 72 36 68 36 66" fill="none" stroke="#f5d88f" stroke-width="3.5" stroke-linecap="round" />
+        <path d="M36 34 C28 34 26 42 30 48 C34 54 40 52 40 52" fill="none" stroke="#f5d88f" stroke-width="3" />
+        <path d="M50 34 C58 34 60 42 56 48 C52 54 46 52 46 52" fill="none" stroke="#f5d88f" stroke-width="3" />
+        <circle cx="48" cy="30" r="2.5" fill="#f5d88f" />
+        <path d="M50 20 L50 25" stroke="#f5d88f" stroke-width="2.5" />
+      </svg>
+      <div class="crest-shloka">॥ श्री गणेशाय नमः ॥</div>
+    </div>
+
+    <!-- Blessings & Family -->
+    <div class="blessings-block">
+      <div class="kicker-text">WITH THE HEAVENLY BLESSINGS OF</div>
+      <div class="elders-text">LATE SMT. BHAGWATI DEVI & LATE SH. DEEN DAYAL GARG</div>
+      <svg class="flourish-divider" viewBox="0 0 100 15">
+        <path d="M10 7.5 C30 2 35 13 50 7.5 C65 2 70 13 90 7.5" fill="none" stroke="#cfa14e" stroke-width="1.2"/>
+        <circle cx="50" cy="7.5" r="2.5" fill="#f5d88f"/>
+      </svg>
+      <div class="host-text">SMT. ANJU GARG</div>
+      <div class="relation-text">W/O LATE SH. BHARAT BHUSHAN GARG</div>
+      <div class="invite-pleasure-text">
+        CORDIALLY INVITE YOU TO THE
+      </div>
+    </div>
+
+    <!-- Ceremony Title Banner -->
+    <div class="ceremony-title-banner">
+      <h2 class="ceremony-title-heading">SANGEET &amp; JAGGO</h2>
+    </div>
+
+    <div class="invite-pleasure-text" style="margin-top: 4px;">
+      TO CELEBRATE THE FORTHCOMING WEDDING OF HER DAUGHTER
+    </div>
+
+    <!-- Couple Spotlight -->
+    <div class="couple-showcase">
+      <div class="couple-names-wrap">
+        <span class="script-name">Shivani</span>
+        <span class="with-connector">with</span>
+        <span class="script-name">Jatin</span>
+      </div>
+      <div class="groom-parents-text">(S/O SMT. NEELAM GOYAL & SH. MAHAVIR GOYAL)</div>
+    </div>
+
+    <!-- Aligned Program Box -->
+    <div class="event-program-box">
+      <div class="program-date-title">ON SATURDAY, 28TH NOVEMBER 2026</div>
+      <div class="program-schedule-list">
+        <div class="schedule-item">
+          <span class="schedule-item-label">JAGGO</span>
+          <span class="schedule-item-time">5:00 PM</span>
+        </div>
+        <div class="schedule-subnote">AT RESIDENCE: #509, PHASE-4, MOHALI</div>
+
+        <div class="schedule-item" style="margin-top: 8px;">
+          <span class="schedule-item-label">SANGEET</span>
+          <span class="schedule-item-time">7:00 PM</span>
+        </div>
+      </div>
+
+      <!-- Venue Details -->
+      <div class="program-venue-block">
+        <div class="venue-kicker-tag">VENUE:</div>
+        <div class="venue-main-title">HOTEL MAYA</div>
+        <div class="venue-sub-address">SECTOR-35, CHANDIGARH</div>
+      </div>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================
+     FULL-SCREEN EVENT 3: THE ROYAL WEDDING & RECEPTION (2 DEC 2026)
+     ============================================================ -->
+<section class="fullscreen-event-section" id="section-wedding">
+  <div class="section-chandelier-bar" aria-hidden="true">
+    <svg class="chandelier-svg" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
+      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
+      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
+      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
+      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
+      <rect x="18" y="72" width="4" height="12" fill="#fff" />
+      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
+      <rect x="48" y="80" width="4" height="14" fill="#fff" />
+      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
+      <rect x="78" y="72" width="4" height="12" fill="#fff" />
+      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
+      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
+      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
+    </svg>
+
+    <svg class="chandelier-svg center" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="35" stroke="#d4a34b" stroke-width="2.5" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="38" r="5" fill="#fae2a2"/>
+      <path d="M50 42 C30 52 10 65 10 88 C30 95 40 78 50 102 C60 78 70 95 90 88 C90 65 70 52 50 42 Z" fill="none" stroke="#f5d88f" stroke-width="2.2"/>
+      <circle cx="10" cy="88" r="3.5" fill="#fae2a2"/>
+      <circle cx="50" cy="102" r="5" fill="#fae2a2"/>
+      <circle cx="90" cy="88" r="3.5" fill="#fae2a2"/>
+      <rect x="8" y="74" width="4" height="13" fill="#fff" />
+      <path d="M10 70 Q12 64 10 60 Q8 64 10 70" fill="#ffd15c"/>
+      <rect x="48" y="86" width="4" height="15" fill="#fff" />
+      <path d="M50 82 Q52 76 50 72 Q48 76 50 82" fill="#ffd15c"/>
+      <rect x="88" y="74" width="4" height="13" fill="#fff" />
+      <path d="M90 70 Q92 64 90 60 Q88 64 90 70" fill="#ffd15c"/>
+      <line x1="50" y1="107" x2="50" y2="128" stroke="#dfb76c" stroke-width="1.8"/>
+      <polygon points="50,128 46,136 54,136" fill="#fae2a2"/>
+    </svg>
+
+    <svg class="chandelier-svg" viewBox="0 0 100 130">
+      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
+      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
+      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
+      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
+      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
+      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
+      <rect x="18" y="72" width="4" height="12" fill="#fff" />
+      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
+      <rect x="48" y="80" width="4" height="14" fill="#fff" />
+      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
+      <rect x="78" y="72" width="4" height="12" fill="#fff" />
+      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
+      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
+      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
+    </svg>
+  </div>
+
+  <div class="event-stage">
+    <!-- Sacred Crest -->
+    <div class="event-crest">
+      <svg class="crest-ganesha" viewBox="0 0 100 100">
+        <path d="M50 18 C40 18 36 28 36 38 C36 49 44 55 48 64 C49 68 46 72 40 72 C37 72 36 68 36 66" fill="none" stroke="#f5d88f" stroke-width="3.5" stroke-linecap="round" />
+        <path d="M36 34 C28 34 26 42 30 48 C34 54 40 52 40 52" fill="none" stroke="#f5d88f" stroke-width="3" />
+        <path d="M50 34 C58 34 60 42 56 48 C52 54 46 52 46 52" fill="none" stroke="#f5d88f" stroke-width="3" />
+        <circle cx="48" cy="30" r="2.5" fill="#f5d88f" />
+        <path d="M50 20 L50 25" stroke="#f5d88f" stroke-width="2.5" />
+      </svg>
+      <div class="crest-shloka">॥ श्री गणेशाय नमः ॥</div>
+    </div>
+
+    <!-- Blessings & Family -->
+    <div class="blessings-block">
+      <div class="kicker-text">WITH THE HEAVENLY BLESSINGS OF</div>
+      <div class="elders-text">LATE SMT. BHAGWATI DEVI & LATE SH. DEEN DAYAL GARG</div>
+      <svg class="flourish-divider" viewBox="0 0 100 15">
+        <path d="M10 7.5 C30 2 35 13 50 7.5 C65 2 70 13 90 7.5" fill="none" stroke="#cfa14e" stroke-width="1.2"/>
+        <circle cx="50" cy="7.5" r="2.5" fill="#f5d88f"/>
+      </svg>
+      <div class="host-text">SMT. ANJU GARG</div>
+      <div class="relation-text">W/O LATE SH. BHARAT BHUSHAN GARG</div>
+      <div class="invite-pleasure-text">
+        REQUESTS THE PLEASURE OF YOUR COMPANY ON<br>
+        THE AUSPICIOUS OCCASION OF
+      </div>
+    </div>
+
+    <!-- Ceremony Title Banner -->
+    <div class="ceremony-title-banner">
+      <h2 class="ceremony-title-heading">THE ROYAL WEDDING</h2>
+    </div>
+
+    <div class="invite-pleasure-text" style="margin-top: 4px;">
+      THE MARRIAGE OF HER DAUGHTER
+    </div>
+
+    <!-- Couple Spotlight -->
+    <div class="couple-showcase">
+      <div class="couple-names-wrap">
+        <span class="script-name">Shivani</span>
+        <span class="with-connector">with</span>
+        <span class="script-name">Jatin</span>
+      </div>
+      <div class="groom-parents-text">(S/O SMT. NEELAM GOYAL & SH. MAHAVIR GOYAL)</div>
+    </div>
+
+    <!-- Aligned Program Box -->
+    <div class="event-program-box">
+      <div class="program-date-title">ON WEDNESDAY, 2ND DECEMBER 2026</div>
+      <div class="program-schedule-list">
+        <div class="schedule-item">
+          <span class="schedule-item-label">RECEPTION OF BARAT</span>
+          <span class="schedule-item-time">8:00 PM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-item-label">DINNER</span>
+          <span class="schedule-item-time">9:00 PM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-item-label">DOLI</span>
+          <span class="schedule-item-time">TAARON KI CHHAON MEIN</span>
+        </div>
+      </div>
+
+      <!-- Venue Details -->
+      <div class="program-venue-block">
+        <div class="venue-kicker-tag">VENUE:</div>
+        <div class="venue-main-title">AMOUR - THE GRAND BALLROOM</div>
+        <div class="venue-sub-address">MUBARAKPUR-DERABASSI ROAD</div>
+      </div>
+    </div>
+<!-- Final Royal Sign-off & Family Blessings (Directly on Wedding Background - ZERO Black Bar) -->
+    <div class="wedding-final-blessings">
+      <svg class="final-ganesha-badge" viewBox="0 0 100 100">
+        <path d="M50 18 C40 18 36 28 36 38 C36 49 44 55 48 64 C49 68 46 72 40 72 C37 72 36 68 36 66" fill="none" stroke="#ffd573" stroke-width="3" stroke-linecap="round" />
+        <circle cx="48" cy="30" r="2.5" fill="#ffd573" />
+      </svg>
+      <div class="final-blessings-title">With Love & Warm Blessings</div>
+      <div class="final-blessings-names">Shivani & Jatin</div>
+      <p class="final-family-rsvp">
+        RSVP: Smt. Anju Garg & Family<br>
+        Residence: #509, Phase-4, Mohali
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCRIPTS: 3D DOORS, SMOOTH SCROLL, CALENDAR, AUDIO, PETALS
+     ============================================================ -->
+<script>
+// 1. ROYAL PALACE 3D DOORS LOGIC
+const introSection = document.getElementById('intro');
+let doorsOpened = false;
+
+function openPalaceDoors(immediateScroll = false) {
+  if (doorsOpened) return;
+  doorsOpened = true;
+  introSection.classList.add('opened');
+  // Guests land and stay on the grand castle page at start (zero auto-scroll)
+}
+
+introSection.addEventListener('wheel', (e) => {
+  if (!doorsOpened && e.deltaY > 20) {
+    openPalaceDoors(false);
+  }
+}, { passive: true });
+
+
+
+// 2. CALENDAR .ICS FILE DOWNLOAD GENERATOR
+
+function downloadCalEvent(type) {
+  let title = "";
+  let description = "";
+  let location = "";
+  let start = "";
+  let end = "";
+
+  if (type === 'wedding') {
+    title = "Wedding & Reception — Shivani & Jatin";
+    description = "Reception of Barat at 8:00 PM, Dinner at 9:00 PM, Doli Taaron Ki Chhaon Mein. With blessings of Smt. Anju Garg.";
+    location = "Amour - The Grand Ballroom, Mubarakpur-Derabassi Road";
+    start = "20261202T143000Z";
+    end = "20261202T203000Z";
+  } else if (type === 'sangeet') {
+    title = "Sangeet Ceremony & Jaggo — Shivani & Jatin";
+    description = "Jaggo 5:00 PM at Residence (#509, Phase-4, Mohali), Sangeet 7:00 PM at Hotel Maya.";
+    location = "Hotel Maya, Sector-35, Chandigarh";
+    start = "20261128T113000Z";
+    end = "20261128T173000Z";
+  } else if (type === 'ramayan') {
+    title = "Ramayan Path & Kirtan — Shivani & Jatin";
+    description = "Saturday 21 Nov: Ramayan Path Arambh 9:00 AM at Residence. Sunday 22 Nov: Kirtan 10:00 AM & Lunch 1:00 PM at Mandir.";
+    location = "Shree Snatan Dharam Mandir (Dharamshala), Phase-4, Mohali";
+    start = "20261121T033000Z";
+    end = "20261122T083000Z";
+  }
+
+  const icsData = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Shivani and Jatin Royal Wedding//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `SUMMARY:${title}`,
+    `DESCRIPTION:${description}`,
+    `LOCATION:${location}`,
+    `DTSTART:${start}`,
+    `DTEND:${end}`,
+    "STATUS:CONFIRMED",
+    "SEQUENCE:0",
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
+
+  const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.setAttribute("download", `${title.replace(/[^a-zA-Z0-9]/g, "_")}.ics`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// 6. WHATSAPP SHARE
+function shareWhatsApp(type) {
+  let text = "";
+  if (type === 'wedding') {
+    text = `✨ *Wedding & Reception of Shivani & Jatin* ✨%0A%0AWith heavenly blessings of Late Smt. Bhagwati Devi & Late Sh. Deen Dayal Garg, Smt. Anju Garg cordially invites you on:%0A%0A🗓 *Wednesday, 2nd December 2026*%0A⏰ *Barat:* 8:00 PM | *Dinner:* 9:00 PM%0A📍 *Venue:* Amour - The Grand Ballroom, Mubarakpur-Derabassi Road%0A%0APlease join us to bless the couple!`;
+  } else if (type === 'sangeet') {
+    text = `🥁 *Sangeet Ceremony & Jaggo — Shivani & Jatin* 🥁%0A%0A🗓 *Saturday, 28th November 2026*%0A🪔 *Jaggo:* 5:00 PM at Residence (#509, Phase-4, Mohali)%0A💃 *Sangeet:* 7:00 PM%0A📍 *Venue:* Hotel Maya, Sector-35, Chandigarh%0A%0ACome dance, celebrate and make memories!`;
+  } else if (type === 'ramayan') {
+    text = `🪔 *Ramayan Path & Kirtan — Shivani & Jatin* 🪔%0A%0A🗓 *Saturday, 21st Nov 2026:* Ramayan Path Arambh 9:00 AM (Residence: #509, Phase-4, Mohali)%0A🗓 *Sunday, 22nd Nov 2026:* Kirtan 10:00 AM | Lunch 1:00 PM%0A📍 *Venue:* Shree Snatan Dharam Mandir, Phase-4, Mohali%0A%0AYour presence is warmly awaited.`;
+  }
+  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+}
+
+// ============================================================
+// 4. PETAL ENGINE REMOVED
+function showerFlowers() {}
+</script>
+</body>
+</html>
