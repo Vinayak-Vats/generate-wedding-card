@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="doors-locked">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,15 +56,48 @@ html {
   overflow-y: scroll;
 }
 
+/* Door page locked state: strictly unscrollable until opened via button */
+html.doors-locked,
+body.doors-locked {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  touch-action: none;
+}
+
+body.doors-locked .royal-ceremony-nav {
+  opacity: 0;
+  pointer-events: none;
+}
+
 body {
-  background: linear-gradient(180deg, #d89272 0%, #e4a585 50%, #d4896a 100%);
-  background-color: var(--ruby-darkest);
+  background: transparent !important;
   color: var(--text-ivory-bright);
   font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   GLOBAL FIXED BACKGROUND LAYER
+   Single continuous stationary background across all pages
+   ============================================================ */
+.global-fixed-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-image: url('image/background_orig.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* ============================================================
@@ -78,7 +111,7 @@ body {
   max-height: 100dvh;
   position: relative;
   overflow: hidden;
-  background: #d89272;
+  background: transparent !important;
   perspective: 1500px;
   display: flex;
   align-items: center;
@@ -100,7 +133,7 @@ body {
   background-size: 200% 100%;
   backface-visibility: hidden;
   transition: transform 2.3s cubic-bezier(0.72, 0, 0.2, 1);
-  z-index: 3;
+  z-index: 15;
   filter: brightness(1.22) contrast(1.08) saturate(1.15);
   box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(0, 0, 0, 0.35);
 }
@@ -127,24 +160,66 @@ body {
   transform: rotateY(112deg);
 }
 
-
-
 .door-front-copy {
   position: absolute;
-  z-index: 20;
-  inset: auto 20px 9%;
+  z-index: 25;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  width: min(90vw, 540px);
   pointer-events: auto;
   text-align: center;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  padding: 24px 20px;
+  background: radial-gradient(ellipse at center, rgba(35, 4, 12, 0.82) 0%, rgba(35, 4, 12, 0.5) 55%, transparent 75%);
+  border-radius: 20px;
+  box-sizing: border-box;
 }
 
-#intro.opened 
-
-.door-front-copy {
+#intro.opened .door-front-copy {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(-50%) translateY(25px);
   pointer-events: none;
+}
+
+.door-welcome-text {
+  font-family: 'Cinzel Decorative', 'Cinzel', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(16px, 2.4vw, 24px);
+  font-weight: 600;
+  color: #fff6e0;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 auto 20px;
+  max-width: 520px;
+  text-shadow: 
+    0 2px 10px rgba(0, 0, 0, 0.95),
+    0 0 25px rgba(223, 183, 108, 0.55),
+    0 0 40px rgba(120, 15, 30, 0.75);
+}
+
+@media (max-width: 768px) {
+  .door-front-copy {
+    left: 50% !important;
+    right: auto !important;
+    bottom: 6% !important;
+    transform: translateX(-50%) !important;
+    width: 90vw !important;
+    max-width: 380px !important;
+    padding: 16px 14px !important;
+    box-sizing: border-box !important;
+  }
+  .door-welcome-text {
+    font-size: 14.5px !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.4 !important;
+    margin-bottom: 16px !important;
+  }
 }
 
 .door-ganesha-badge {
@@ -224,6 +299,9 @@ body {
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(223, 183, 108, 0.25);
   transition: all 0.3s ease;
+  margin: 0 auto;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .btn-open-palace:hover {
@@ -261,122 +339,197 @@ body {
   transform: translateY(-1px);
 }
 
-/* Inner Courtyard revealed behind doors */
+/* ============================================================
+   PAGE 1 GRAND MAHAL PALACE SCENE
+   Seamless wedding blend: golden courtyard floor dissolved gracefully into pink sunset sky
+   ============================================================ */
 .door-reveal-scene {
   position: absolute;
   inset: 0;
-  background-image: 
-    linear-gradient(180deg, rgba(212, 107, 125, 0.12) 0%, rgba(230, 140, 155, 0.04) 40%, rgba(220, 150, 118, 0.35) 82%, #d89272 100%),
-    url('image/Mahal_headroom.png');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+.door-reveal-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('image/mahal_page1.jpg');
   background-size: cover;
-  background-position: center top;
+  background-position: center center;
   background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 66%,
+    rgba(0, 0, 0, 0.95) 75%,
+    rgba(0, 0, 0, 0.78) 83%,
+    rgba(0, 0, 0, 0.45) 91%,
+    rgba(0, 0, 0, 0.12) 97%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 66%,
+    rgba(0, 0, 0, 0.95) 75%,
+    rgba(0, 0, 0, 0.78) 83%,
+    rgba(0, 0, 0, 0.45) 91%,
+    rgba(0, 0, 0, 0.12) 97%,
+    transparent 100%
+  );
+}
+
+/* Luminous Wedding Golden-to-Pink Atmospheric Merge:
+   Intelligently bridges golden marble courtyard into celebratory pink sunset */
+.door-reveal-scene::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30vh;
+  min-height: 160px;
+  max-height: 280px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 193, 101, 0) 0%,
+    rgba(255, 190, 95, 0.28) 25%,
+    rgba(255, 162, 118, 0.55) 52%,
+    rgba(244, 142, 158, 0.72) 76%,
+    rgba(242, 155, 172, 0.38) 92%,
+    transparent 100%
+  );
+}
+
+/* Celebratory Royal Crackers / Fireworks Canvas over Mahal Sky */
+.sky-crackers-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+#intro::after {
+  display: none !important;
+}
+
+/* Beautiful cinematic reveal centered right on the palace facade */
+.door-reveal-content {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  z-index: 5;
+  max-width: 680px;
+  width: 92%;
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s, 
+              transform 3.2s cubic-bezier(0.18, 0.85, 0.3, 1) 0.8s,
+              filter 2.5s ease 0.8s;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 40px 20px;
-  z-index: 1;
-}
-
-/* Warm sunlit golden-peach mist at the bottom of the intro doors screen */
-#intro::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 90px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(222, 154, 120, 0.38) 45%,
-    rgba(216, 146, 114, 0.85) 82%,
-    #d89272 100%
-  );
-  z-index: 5;
-  pointer-events: none;
-}
-
-/* Beautiful cinematic zoom-in graphic animation from minimum size to full size */
-.door-reveal-content {
-  position: relative;
-  z-index: 3;
-  max-width: 680px;
-  width: 100%;
-  opacity: 0;
-  transform: scale(0.3);
-  filter: blur(6px);
-  transition: opacity 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s, 
-              transform 3.4s cubic-bezier(0.18, 0.85, 0.3, 1) 0.9s,
-              filter 2.5s ease 0.9s;
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
+  pointer-events: auto;
 }
 
 #intro.opened .door-reveal-content {
   opacity: 1;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
   filter: blur(0px);
 }
 
 .castle-eyebrow {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  font-size: clamp(14px, 2.2vw, 18px);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(12px, 1.55vw, 15px);
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--text-ivory-bright);
-  margin-bottom: 8px;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 16px rgba(0, 0, 0, 0.85);
 }
 
-.lotus-flourish {
-  width: min(340px, 86vw);
-  height: 26px;
-  display: block;
-  margin: 6px auto;
+/* Elegant thin flourish line with central diamond motif */
+.palace-flourish-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(260px, 70vw);
+  margin: 4px auto;
+  opacity: 0.9;
+}
+
+.palace-flourish-divider .divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 235, 185, 0.9), transparent);
+}
+
+.palace-flourish-divider .divider-gem {
+  color: #ffd685;
+  font-size: 8px;
+  margin: 0 9px;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 120, 0.9));
 }
 
 .castle-names {
   font-family: 'Great Vibes', 'Allura', 'Edwardian Script ITC', cursive;
-  font-size: clamp(64px, 11vw, 106px);
+  font-size: clamp(52px, 8vw, 92px);
   font-weight: normal;
-  color: var(--gold-antique);
+  color: #ffe07a;
   line-height: 1.05;
-  margin: 4px 0 8px;
+  margin: 2px 0 4px;
+  text-shadow: 
+    0 2px 10px rgba(0, 0, 0, 0.95),
+    0 0 22px rgba(255, 220, 110, 0.6),
+    0 0 35px rgba(255, 190, 70, 0.4);
+  letter-spacing: 0.02em;
+}
+
+.castle-names .amp {
+  font-family: 'Great Vibes', 'Allura', cursive;
+  font-size: 0.9em;
+  font-style: normal;
+  color: #ffe07a;
+  margin: 0 4px;
 }
 
 .castle-subline {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(18px, 3.2vw, 25px);
+  font-size: clamp(16px, 2.2vw, 21px);
   font-weight: 500;
   font-style: italic;
-  letter-spacing: 0.06em;
-  color: var(--text-ivory-bright);
-  line-height: 1.4;
-  margin: 2px 0;
-}
-
-.lotus-flourish {
-  width: min(320px, 84vw);
-  height: 24px;
-  display: block;
-  margin: 8px auto;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 1px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 16px rgba(0, 0, 0, 0.85);
 }
 
 .castle-dates-text {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  font-size: clamp(11.5px, 1.85vw, 14.5px);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(11px, 1.4vw, 13.5px);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #fff6e5;
-  margin: 10px auto 18px;
+  color: #fff9ed;
+  margin: 6px auto 10px;
   text-align: center;
   white-space: nowrap !important;
   display: block;
@@ -385,29 +538,53 @@ body {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 14px rgba(0, 0, 0, 0.85);
 }
 
 .btn-scroll-down {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  color: var(--gold-antique);
+  color: #ffd877;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
+  font-size: clamp(8px, 1vw, 10px);
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   animation: bounceHint 2s infinite ease-in-out;
-  text-shadow: var(--subtle-shadow-text);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 12px rgba(255, 215, 120, 0.5);
+  cursor: pointer;
 }
 
 .btn-scroll-down svg {
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   fill: currentColor;
-  margin-top: 6px;
-  /* shadow removed */
+  margin-top: 4px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+@media (max-width: 768px) {
+  .mahal-cutout-img {
+    width: 155%;
+    max-width: none;
+    max-height: 65vh;
+  }
+  .door-reveal-content {
+    width: 95%;
+    top: 46%;
+  }
+  .castle-names {
+    font-size: 48px;
+  }
+  .castle-subline {
+    font-size: 15px;
+  }
+  .castle-dates-text {
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+  }
 }
 
 @keyframes bounceHint {
@@ -441,6 +618,7 @@ body {
 #section-ramayan {
   margin-top: 0 !important;
   z-index: 2;
+  overflow: hidden !important;
 }
 
 #section-sangeet {
@@ -455,86 +633,280 @@ body {
 
 /* Dedicated background layer with soft edge alpha dissolves */
 .section-bg-layer {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  z-index: 0;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.45) 3%,
-    rgba(0, 0, 0, 0.88) 7%,
-    #000 11%,
-    #000 89%,
-    rgba(0, 0, 0, 0.88) 93%,
-    rgba(0, 0, 0, 0.45) 97%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.45) 3%,
-    rgba(0, 0, 0, 0.88) 7%,
-    #000 11%,
-    #000 89%,
-    rgba(0, 0, 0, 0.88) 93%,
-    rgba(0, 0, 0, 0.45) 97%,
-    transparent 100%
-  );
+  display: none !important;
 }
 
-/* Bright, warm sunset peach-gold atmospheric blend across every section boundary */
 .fullscreen-event-section::before,
 .fullscreen-event-section::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.fullscreen-event-section::before {
-  top: 0;
-  height: 95px;
-  background: linear-gradient(
-    180deg,
-    #d89272 0%,
-    rgba(222, 154, 120, 0.78) 28%,
-    rgba(232, 172, 138, 0.32) 65%,
-    transparent 100%
-  );
-}
-
-.fullscreen-event-section::after {
-  bottom: 0;
-  height: 95px;
-  background: linear-gradient(
-    0deg,
-    #d89272 0%,
-    rgba(222, 154, 120, 0.78) 28%,
-    rgba(232, 172, 138, 0.32) 65%,
-    transparent 100%
-  );
-}
-
-#section-ramayan .section-bg-layer {
-  background-image: url('image/background_paath.png');
-}
-
-#section-sangeet .section-bg-layer {
-  background-image: url('image/Background_sangeet.png');
-}
-
-#section-wedding .section-bg-layer {
-  background-image: url('image/Background_wedding.png');
+  display: none !important;
 }
 
 .section-chandelier-bar {
   display: none !important;
+}
+
+/* Sacred Minute Flower Shower Canvas - Only active on Ramayan Path */
+.ramayan-flower-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.65s ease, visibility 0.65s;
+}
+
+#section-ramayan.in-view .ramayan-flower-canvas {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ============================================================
+   ROYAL HANGING LANTERNS & BELLS (LIVELY GRAPHICAL MOTION)
+   Dynamically appears ONLY when on Ramayan Path page.
+   Smoothly retracts & disappears when moving to next page.
+   ============================================================ */
+.ramayan-lantern-suite {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 6;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-55px);
+  transition: opacity 0.75s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s;
+}
+
+#section-ramayan.in-view .ramayan-lantern-suite {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lantern-cluster {
+  position: absolute;
+  top: -15px;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.lantern-cluster-left {
+  left: clamp(8px, 3.5vw, 52px);
+  transform-origin: top center;
+  animation: lanternSwayLeft 4.4s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.lantern-cluster-right {
+  right: clamp(8px, 3.5vw, 52px);
+  transform-origin: top center;
+  animation: lanternSwayRight 4.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.royal-lantern-img {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 12px 28px rgba(255, 180, 70, 0.5)) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
+  transition: transform 0.3s ease;
+}
+
+/* Primary Foreground Lantern */
+.royal-lantern-img.lantern-primary {
+  width: clamp(96px, 11vw, 155px);
+  height: auto;
+  position: relative;
+  z-index: 3;
+}
+
+/* Secondary Background Sister Lantern (gives depth and royal layering) */
+.royal-lantern-img.lantern-secondary {
+  width: clamp(70px, 8vw, 110px);
+  height: auto;
+  position: relative;
+  z-index: 2;
+  margin-top: -18px;
+  opacity: 0.88;
+  filter: drop-shadow(0 8px 18px rgba(255, 160, 50, 0.38)) brightness(0.96);
+  transform-origin: top center;
+  animation: lanternSwaySecondary 5.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.lantern-cluster-left .lantern-secondary {
+  margin-left: -24px;
+}
+
+.lantern-cluster-right .lantern-secondary {
+  margin-right: -24px;
+  order: -1;
+}
+
+/* Atmospheric candlelight halo behind the lanterns */
+.lantern-glow {
+  position: absolute;
+  top: 42px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 195, 90, 0.42) 0%, rgba(255, 150, 50, 0.16) 48%, transparent 74%);
+  pointer-events: none;
+  z-index: 1;
+  animation: lanternGlowPulse 3.5s ease-in-out infinite alternate;
+}
+
+.lantern-cluster-left .lantern-glow {
+  left: 10px;
+}
+
+.lantern-cluster-right .lantern-glow {
+  right: 10px;
+}
+
+@keyframes lanternSwayLeft {
+  0% {
+    transform: rotate(-6.5deg);
+  }
+  100% {
+    transform: rotate(6.5deg);
+  }
+}
+
+@keyframes lanternSwayRight {
+  0% {
+    transform: rotate(6.5deg);
+  }
+  100% {
+    transform: rotate(-6.5deg);
+  }
+}
+
+@keyframes lanternSwaySecondary {
+  0% {
+    transform: rotate(5deg) scale(0.98);
+  }
+  100% {
+    transform: rotate(-5deg) scale(1.02);
+  }
+}
+
+@keyframes lanternGlowPulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Sacred Golden Temple Bells (Mandir Ghanti with Lively Swing) */
+.bell-hanging {
+  position: absolute;
+  top: -14px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.bell-hanging-left {
+  left: clamp(90px, 14vw, 210px);
+  transform-origin: top center;
+  animation: bellChimeLeft 3.4s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.bell-hanging-right {
+  right: clamp(90px, 14vw, 210px);
+  transform-origin: top center;
+  animation: bellChimeRight 3.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.royal-bell-img {
+  display: block;
+  width: clamp(84px, 9vw, 126px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 12px 26px rgba(255, 185, 80, 0.55)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.bell-glow {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 205, 95, 0.35) 0%, rgba(255, 140, 50, 0.12) 50%, transparent 72%);
+  pointer-events: none;
+  z-index: 1;
+  animation: lanternGlowPulse 3.4s ease-in-out infinite alternate;
+}
+
+@keyframes bellChimeLeft {
+  0% {
+    transform: rotate(-8.5deg);
+  }
+  100% {
+    transform: rotate(8.5deg);
+  }
+}
+
+@keyframes bellChimeRight {
+  0% {
+    transform: rotate(8.5deg);
+  }
+  100% {
+    transform: rotate(-8.5deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .lantern-cluster-left {
+    left: 2px;
+    top: -10px;
+  }
+  .lantern-cluster-right {
+    right: 2px;
+    top: -10px;
+  }
+  .royal-lantern-img.lantern-primary {
+    width: 66px;
+  }
+  .royal-lantern-img.lantern-secondary {
+    display: none; /* Keep mobile view clean, spacious & centered */
+  }
+  .lantern-glow {
+    width: 80px;
+    height: 80px;
+    top: 25px;
+  }
+  .bell-hanging-left {
+    left: clamp(44px, 13vw, 70px);
+    top: -10px;
+  }
+  .bell-hanging-right {
+    right: clamp(44px, 13vw, 70px);
+    top: -10px;
+  }
+  .royal-bell-img {
+    width: clamp(42px, 10.5vw, 54px);
+  }
+  .bell-glow {
+    width: 65px;
+    height: 65px;
+    top: 22px;
+  }
 }
 
 /* ============================================================
@@ -1127,21 +1499,19 @@ body {
 
   /* Door Cover Screen */
   .door-front-copy {
-    inset: auto 12px 6% !important;
-  }
-
-  .door-names {
-    font-size: clamp(38px, 11vw, 54px) !important;
-  }
-
-  .door-tagline {
-    font-size: 9.5px !important;
-    margin-bottom: 14px !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 6% !important;
+    transform: translateX(-50%) !important;
+    width: 90vw !important;
+    max-width: 380px !important;
+    box-sizing: border-box !important;
   }
 
   .btn-open-palace {
-    padding: 10px 26px !important;
+    padding: 12px 28px !important;
     font-size: 12px !important;
+    white-space: nowrap !important;
   }
 }
 
@@ -1231,44 +1601,9 @@ body {
   border-color: #ffffff;
 }
 
-/* Delicate Royal Architectural Seam Divider at Page Boundaries */
+/* Page boundary divider line disabled for seamless continuous flow between screens */
 .royal-card-header-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  z-index: 6;
-  pointer-events: none;
-  padding: 0 8%;
-  transform: translateY(-50%);
-}
-
-.royal-card-header-accent .accent-line {
-  flex: 1;
-  max-width: 320px;
-  height: 1.5px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 232, 178, 0.35) 25%, rgba(255, 220, 140, 0.9) 85%, #fff2cc 100%);
-  box-shadow: 0 1px 6px rgba(145, 55, 35, 0.45), 0 0 10px rgba(255, 215, 130, 0.65);
-}
-
-.royal-card-header-accent .accent-line:last-child {
-  background: linear-gradient(270deg, transparent 0%, rgba(255, 232, 178, 0.35) 25%, rgba(255, 220, 140, 0.9) 85%, #fff2cc 100%);
-}
-
-.royal-card-header-accent .accent-motif {
-  font-size: 12px;
-  color: #fff6db;
-  letter-spacing: 0.24em;
-  opacity: 0.98;
-  text-shadow: 0 1px 4px rgba(120, 35, 20, 0.85), 0 0 12px rgba(255, 215, 125, 0.85);
-  background: radial-gradient(ellipse at center, rgba(198, 108, 78, 0.72) 0%, rgba(216, 146, 114, 0.35) 62%, transparent 100%);
-  padding: 2px 14px;
-  border-radius: 20px;
+  display: none !important;
 }
 
 /* Subtle Next Ceremony Card Transition Prompt at Bottom of Stage */
@@ -1523,7 +1858,9 @@ body {
 
 </style>
 </head>
-<body>
+<body class="doors-locked">
+  <!-- Fixed Global Background Image: Single continuous background across all pages -->
+  <div class="global-fixed-bg" id="globalFixedBg" aria-hidden="true"></div>
 
 <!-- PETALS FALLING CANVAS -->
 
@@ -1537,72 +1874,37 @@ body {
 
   <!-- Cover Copy on Closed Doors -->
   <div class="door-front-copy">
-    <svg class="door-ganesha-badge" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="44" fill="none" stroke="#d4a34b" stroke-width="1.5" stroke-dasharray="3,3" />
-      <circle cx="50" cy="50" r="40" fill="rgba(65, 8, 18, 0.9)" stroke="#dfb76c" stroke-width="1.2" />
-      <path d="M50 20 C42 20 38 28 38 38 C38 48 45 54 48 62 C49 65 47 70 42 70 C39 70 38 67 38 65" fill="none" stroke="#f5d88f" stroke-width="3" stroke-linecap="round" />
-      <path d="M38 36 C30 36 28 44 32 50 C36 56 42 54 42 54" fill="none" stroke="#f5d88f" stroke-width="2.5" />
-      <path d="M50 36 C58 36 60 44 56 50 C52 56 46 54 46 54" fill="none" stroke="#f5d88f" stroke-width="2.5" />
-      <circle cx="48" cy="32" r="2.5" fill="#f5d88f" />
-      <path d="M50 24 L50 28" stroke="#f5d88f" stroke-width="2" />
-    </svg>
-
-    <div class="door-shloka">॥ श्री गणेशाय नमः ॥</div>
-    <div class="door-eyebrow">The Royal Wedding Invitation</div>
-    <h1 class="door-names">Shivani <span class="amp">&</span> Jatin</h1>
-    <p class="door-tagline">A Celebration of Love, Tradition & Togetherness</p>
+    <div class="door-welcome-text">
+      Welcome to celebration of love, tradition and togetherness
+    </div>
     
     <button class="btn-open-palace" id="btn-open-palace" onclick="openPalaceDoors(false)">
       Open The Royal Doors
     </button>
   </div>
 
-  <!-- Courtyard scene revealed behind doors -->
+  <!-- Courtyard scene revealed behind doors (Page 1: Exact Mahal Scene) -->
   <div class="door-reveal-scene">
+    <canvas id="skyCrackersCanvas" class="sky-crackers-canvas" aria-hidden="true"></canvas>
+
     <div class="door-reveal-content">
       <div class="castle-eyebrow">WITH JOY IN OUR HEARTS</div>
-      <svg class="lotus-flourish" viewBox="-150 -14 300 28" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <line x1="-24" y1="0" x2="-130" y2="0" stroke="#ffd277" stroke-width="1.2" stroke-opacity="0.85"/>
-        <polygon points="-132,0 -137,-3.5 -142,0 -137,3.5" fill="#ffd277"/>
-        <circle cx="-130" cy="0" r="1.3" fill="#ffd277"/>
-        <circle cx="-24" cy="0" r="1.3" fill="#ffd277"/>
-        <g transform="translate(0, 0)">
-          <path d="M0 -10 C-3.5 -5 -3.5 1 0 5 C3.5 1 3.5 -5 0 -10 Z" fill="none" stroke="#ffd277" stroke-width="1.4"/>
-          <path d="M-2 -8 C-6.5 -3.5 -5.5 2 -1 4.5" fill="none" stroke="#ffd277" stroke-width="1.2"/>
-          <path d="M2 -8 C6.5 -3.5 5.5 2 1 4.5" fill="none" stroke="#ffd277" stroke-width="1.2"/>
-          <path d="M-3.5 -4.5 C-9.5 0 -8.5 4.5 -2 5.5" fill="none" stroke="#ffd277" stroke-width="1.1"/>
-          <path d="M3.5 -4.5 C9.5 0 8.5 4.5 2 5.5" fill="none" stroke="#ffd277" stroke-width="1.1"/>
-          <path d="M-8 4.5 Q0 8.5 8 4.5" fill="none" stroke="#ffd277" stroke-width="1.2"/>
-          <circle cx="0" cy="8.5" r="1.4" fill="#ffd277"/>
-        </g>
-        <line x1="24" y1="0" x2="130" y2="0" stroke="#ffd277" stroke-width="1.2" stroke-opacity="0.85"/>
-        <circle cx="24" cy="0" r="1.3" fill="#ffd277"/>
-        <polygon points="132,0 137,-3.5 142,0 137,3.5" fill="#ffd277"/>
-        <circle cx="130" cy="0" r="1.3" fill="#ffd277"/>
-      </svg>
-      <h2 class="castle-names">Shivani & Jatin</h2>
+      
+      <div class="palace-flourish-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-gem">&#9670;</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <h2 class="castle-names">Shivani <span class="amp">&</span> Jatin</h2>
       <div class="castle-subline">are beginning a new journey,</div>
       <div class="castle-subline">together</div>
-      <svg class="lotus-flourish" viewBox="-150 -14 300 28" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="margin-top: 10px;">
-        <line x1="-24" y1="0" x2="-130" y2="0" stroke="#ffd277" stroke-width="1.2" stroke-opacity="0.85"/>
-        <polygon points="-132,0 -137,-3.5 -142,0 -137,3.5" fill="#ffd277"/>
-        <circle cx="-130" cy="0" r="1.3" fill="#ffd277"/>
-        <circle cx="-24" cy="0" r="1.3" fill="#ffd277"/>
-        <g transform="translate(0, 0)">
-          <path d="M0 -10 C-3.5 -5 -3.5 1 0 5 C3.5 1 3.5 -5 0 -10 Z" fill="none" stroke="#ffd277" stroke-width="1.4"/>
-          <path d="M-2 -8 C-6.5 -3.5 -5.5 2 -1 4.5" fill="none" stroke="#ffd277" stroke-width="1.2"/>
-          <path d="M2 -8 C6.5 -3.5 5.5 2 1 4.5" fill="none" stroke="#ffd277" stroke-width="1.2"/>
-          <path d="M-3.5 -4.5 C-9.5 0 -8.5 4.5 -2 5.5" fill="none" stroke="#ffd277" stroke-width="1.1"/>
-          <path d="M3.5 -4.5 C9.5 0 8.5 4.5 2 5.5" fill="none" stroke="#ffd277" stroke-width="1.1"/>
-          <path d="M-8 4.5 Q0 8.5 8 4.5" fill="none" stroke="#ffd277" stroke-width="1.2"/>
-          <circle cx="0" cy="8.5" r="1.4" fill="#ffd277"/>
-        </g>
-        <line x1="24" y1="0" x2="130" y2="0" stroke="#ffd277" stroke-width="1.2" stroke-opacity="0.85"/>
-        <circle cx="24" cy="0" r="1.3" fill="#ffd277"/>
-        <polygon points="132,0 137,-3.5 142,0 137,3.5" fill="#ffd277"/>
-        <circle cx="130" cy="0" r="1.3" fill="#ffd277"/>
-      </svg>
-      <div class="castle-dates-text">NOVEMBER 21ST &mdash; DECEMBER 2ND, 2026</div>
+
+      <div class="palace-flourish-divider" aria-hidden="true" style="margin-top: 10px; margin-bottom: 14px;">
+        <span class="divider-line"></span>
+        <span class="divider-gem">&#9670;</span>
+        <span class="divider-line"></span>
+      </div>
 
       <div>
         <a href="#section-ramayan" class="btn-scroll-down">
@@ -1639,92 +1941,45 @@ body {
 </nav>
 
 <section class="fullscreen-event-section" id="section-ramayan">
-  <div class="royal-card-header-accent" aria-hidden="true">
-    <span class="accent-line"></span>
-    <span class="accent-motif">&#10070; &#10048; &#10070;</span>
-    <span class="accent-line"></span>
-  </div>
   <div class="section-bg-layer" aria-hidden="true"></div>
-  <!-- Hanging Chandeliers at Top of Screen -->
-  <div class="section-chandelier-bar" aria-hidden="true">
-    <svg class="chandelier-svg" viewBox="0 0 100 130">
-      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
-      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
-      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
-      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
-      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
-      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
-      <rect x="18" y="72" width="4" height="12" fill="#fff" />
-      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
-      <rect x="48" y="80" width="4" height="14" fill="#fff" />
-      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
-      <rect x="78" y="72" width="4" height="12" fill="#fff" />
-      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
-      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
-      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
-    </svg>
 
-    <svg class="chandelier-svg center" viewBox="0 0 100 130">
-      <line x1="50" y1="0" x2="50" y2="35" stroke="#d4a34b" stroke-width="2.5" stroke-dasharray="2,3"/>
-      <circle cx="50" cy="38" r="5" fill="#fae2a2"/>
-      <path d="M50 42 C30 52 10 65 10 88 C30 95 40 78 50 102 C60 78 70 95 90 88 C90 65 70 52 50 42 Z" fill="none" stroke="#f5d88f" stroke-width="2.2"/>
-      <circle cx="10" cy="88" r="3.5" fill="#fae2a2"/>
-      <circle cx="50" cy="102" r="5" fill="#fae2a2"/>
-      <circle cx="90" cy="88" r="3.5" fill="#fae2a2"/>
-      <rect x="8" y="74" width="4" height="13" fill="#fff" />
-      <path d="M10 70 Q12 64 10 60 Q8 64 10 70" fill="#ffd15c"/>
-      <rect x="48" y="86" width="4" height="15" fill="#fff" />
-      <path d="M50 82 Q52 76 50 72 Q48 76 50 82" fill="#ffd15c"/>
-      <rect x="88" y="74" width="4" height="13" fill="#fff" />
-      <path d="M90 70 Q92 64 90 60 Q88 64 90 70" fill="#ffd15c"/>
-      <line x1="50" y1="107" x2="50" y2="128" stroke="#dfb76c" stroke-width="1.8"/>
-      <polygon points="50,128 46,136 54,136" fill="#fae2a2"/>
-    </svg>
+  <!-- Minute Sacred Flower Showering Canvas (Pushpa Vrishti for Ramayan Path) -->
+  <canvas id="ramayanFlowerShower" class="ramayan-flower-canvas" aria-hidden="true"></canvas>
 
-    <svg class="chandelier-svg" viewBox="0 0 100 130">
-      <line x1="50" y1="0" x2="50" y2="40" stroke="#d4a34b" stroke-width="2" stroke-dasharray="2,3"/>
-      <circle cx="50" cy="42" r="4" fill="#fae2a2"/>
-      <path d="M50 45 C35 55 20 65 20 85 C35 90 45 75 50 95 C55 75 65 90 80 85 C80 65 65 55 50 45 Z" fill="none" stroke="#dfb76c" stroke-width="2"/>
-      <circle cx="20" cy="85" r="3" fill="#fae2a2"/>
-      <circle cx="50" cy="95" r="4" fill="#fae2a2"/>
-      <circle cx="80" cy="85" r="3" fill="#fae2a2"/>
-      <rect x="18" y="72" width="4" height="12" fill="#fff" />
-      <path d="M20 68 Q22 62 20 58 Q18 62 20 68" fill="#ffd15c"/>
-      <rect x="48" y="80" width="4" height="14" fill="#fff" />
-      <path d="M50 76 Q52 70 50 66 Q48 70 50 76" fill="#ffd15c"/>
-      <rect x="78" y="72" width="4" height="12" fill="#fff" />
-      <path d="M80 68 Q82 62 80 58 Q78 62 80 68" fill="#ffd15c"/>
-      <line x1="50" y1="99" x2="50" y2="120" stroke="#dfb76c" stroke-width="1.5"/>
-      <polygon points="50,120 47,128 53,128" fill="#fae2a2"/>
-    </svg>
+  <!-- Royal Hanging Lantern & Sacred Bells Suite (Authentic glowing lanterns and temple bells framing Ramayan Path) -->
+  <div class="ramayan-lantern-suite" aria-hidden="true">
+    <!-- Left Lantern Duo -->
+    <div class="lantern-cluster lantern-cluster-left">
+      <div class="lantern-glow"></div>
+      <img src="image/lantern.png" class="royal-lantern-img lantern-secondary" alt="" />
+      <img src="image/lantern.png" class="royal-lantern-img lantern-primary" alt="" />
+    </div>
+
+    <!-- Sacred Golden Temple Bells (Left & Right Mid-Canopy) -->
+    <div class="bell-hanging bell-hanging-left">
+      <div class="bell-glow"></div>
+      <img src="image/Bells.png" class="royal-bell-img" alt="" />
+    </div>
+    <div class="bell-hanging bell-hanging-right">
+      <div class="bell-glow"></div>
+      <img src="image/Bells.png" class="royal-bell-img" alt="" />
+    </div>
+
+    <!-- Right Lantern Duo -->
+    <div class="lantern-cluster lantern-cluster-right">
+      <div class="lantern-glow"></div>
+      <img src="image/lantern.png" class="royal-lantern-img lantern-secondary" alt="" />
+      <img src="image/lantern.png" class="royal-lantern-img lantern-primary" alt="" />
+    </div>
   </div>
 
   <div class="event-stage">
-    <!-- Top Sacred Crest -->
-    <div class="event-crest">
-      <svg class="crest-ganesha" viewBox="0 0 100 100">
-        <path d="M50 18 C40 18 36 28 36 38 C36 49 44 55 48 64 C49 68 46 72 40 72 C37 72 36 68 36 66" fill="none" stroke="#f5d88f" stroke-width="3.5" stroke-linecap="round" />
-        <path d="M36 34 C28 34 26 42 30 48 C34 54 40 52 40 52" fill="none" stroke="#f5d88f" stroke-width="3" />
-        <path d="M50 34 C58 34 60 42 56 48 C52 54 46 52 46 52" fill="none" stroke="#f5d88f" stroke-width="3" />
-        <circle cx="48" cy="30" r="2.5" fill="#f5d88f" />
-        <path d="M50 20 L50 25" stroke="#f5d88f" stroke-width="2.5" />
+    <!-- Royal Floral Motif Accent -->
+    <div class="ceremony-top-flourish" aria-hidden="true">
+      <svg viewBox="0 0 100 20" style="width: 70px; height: 14px; margin-bottom: 6px;">
+        <path d="M10 10 C30 3 35 17 50 10 C65 3 70 17 90 10" fill="none" stroke="#ffd277" stroke-width="1.3"/>
+        <circle cx="50" cy="10" r="2.8" fill="#ffd277"/>
       </svg>
-      <div class="crest-shloka">॥ श्री गणेशाय नमः ॥</div>
-    </div>
-
-    <!-- Family Blessings -->
-    <div class="blessings-block">
-      <div class="kicker-text">WITH THE HEAVENLY BLESSINGS OF</div>
-      <div class="elders-text">LATE SMT. BHAGWATI DEVI & LATE SH. DEEN DAYAL GARG</div>
-      <svg class="flourish-divider" viewBox="0 0 100 15">
-        <path d="M10 7.5 C30 2 35 13 50 7.5 C65 2 70 13 90 7.5" fill="none" stroke="#cfa14e" stroke-width="1.2"/>
-        <circle cx="50" cy="7.5" r="2.5" fill="#f5d88f"/>
-      </svg>
-      <div class="host-text">SMT. ANJU GARG</div>
-      <div class="relation-text">W/O LATE SH. BHARAT BHUSHAN GARG</div>
-      <div class="invite-pleasure-text">
-        CORDIALLY INVITES YOU TO THE
-      </div>
     </div>
 
     <!-- Ceremony Title Banner -->
@@ -1785,11 +2040,6 @@ body {
      FULL-SCREEN EVENT 2: SANGEET CEREMONY & JAGGO (28 NOV 2026)
      ============================================================ -->
 <section class="fullscreen-event-section" id="section-sangeet">
-  <div class="royal-card-header-accent" aria-hidden="true">
-    <span class="accent-line"></span>
-    <span class="accent-motif">&#10070; &#10048; &#10070;</span>
-    <span class="accent-line"></span>
-  </div>
   <div class="section-bg-layer" aria-hidden="true"></div>
   <div class="section-chandelier-bar" aria-hidden="true">
     <svg class="chandelier-svg" viewBox="0 0 100 130">
@@ -1900,11 +2150,6 @@ body {
      FULL-SCREEN EVENT 3: THE ROYAL WEDDING & RECEPTION (2 DEC 2026)
      ============================================================ -->
 <section class="fullscreen-event-section" id="section-wedding">
-  <div class="royal-card-header-accent" aria-hidden="true">
-    <span class="accent-line"></span>
-    <span class="accent-motif">&#10070; &#10048; &#10070;</span>
-    <span class="accent-line"></span>
-  </div>
   <div class="section-bg-layer" aria-hidden="true"></div>
   <div class="section-chandelier-bar" aria-hidden="true">
     <svg class="chandelier-svg" viewBox="0 0 100 130">
@@ -2032,14 +2277,246 @@ function openPalaceDoors(immediateScroll = false) {
   if (doorsOpened) return;
   doorsOpened = true;
   introSection.classList.add('opened');
-  // Guests land and stay on the grand castle page at start (zero auto-scroll)
+  
+  // Unlock scrolling now that doors are opened
+  document.documentElement.classList.remove('doors-locked');
+  document.body.classList.remove('doors-locked');
+
+  // Trigger celebratory royal sky crackers
+  if (window.initSkyCrackers) {
+    window.initSkyCrackers();
+  }
 }
 
-introSection.addEventListener('wheel', (e) => {
-  if (!doorsOpened && e.deltaY > 20) {
-    openPalaceDoors(false);
+// ============================================================
+// CELEBRATORY SKY CRACKERS / FIREWORKS SYSTEM (PAGE 1 MAHAL)
+// ============================================================
+(function() {
+  const canvas = document.getElementById('skyCrackersCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width = 0;
+  let height = 0;
+  let particles = [];
+  let rockets = [];
+  let animId = null;
+  let isRunning = false;
+  let launchTimer = null;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = canvas.clientWidth || window.innerWidth;
+    height = canvas.clientHeight || window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.scale(dpr, dpr);
   }
-}, { passive: true });
+
+  // Palette: Festive Royal Gold, Radiant Champagne, and Warm Ruby Sparkles
+  const colorPalettes = [
+    ['#ffe58f', '#ffd700', '#ffc233', '#ffffff', '#fffae6'], // Royal 24k Gold
+    ['#ff9bb2', '#ffa07a', '#ffd277', '#fff0d4', '#ff708d'], // Rose Gold & Ruby Spark
+    ['#ffd866', '#ffea9f', '#ffffff', '#ffe0b2', '#ffaa33']  // Golden Starlight
+  ];
+
+  class Rocket {
+    constructor(startX, startY, targetX, targetY, colors) {
+      this.x = startX;
+      this.y = startY;
+      this.targetX = targetX;
+      this.targetY = targetY;
+      this.colors = colors;
+      const angle = Math.atan2(targetY - startY, targetX - startX);
+      const dist = Math.hypot(targetX - startX, targetY - startY);
+      const speed = dist / 38;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.trail = [];
+      this.alive = true;
+    }
+    update() {
+      this.trail.push({ x: this.x, y: this.y, alpha: 0.8 });
+      if (this.trail.length > 5) this.trail.shift();
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.vy < 0 && this.y <= this.targetY) {
+        this.alive = false;
+        createBurst(this.targetX, this.targetY, this.colors);
+      }
+    }
+    draw(context) {
+      context.save();
+      for (let i = 0; i < this.trail.length; i++) {
+        const pt = this.trail[i];
+        const a = (i + 1) / this.trail.length * 0.7;
+        context.beginPath();
+        context.arc(pt.x, pt.y, 1.8, 0, Math.PI * 2);
+        context.fillStyle = `rgba(255, 230, 150, ${a})`;
+        context.fill();
+      }
+      context.beginPath();
+      context.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+      context.fillStyle = '#ffffff';
+      context.shadowColor = '#ffd700';
+      context.shadowBlur = 8;
+      context.fill();
+      context.restore();
+    }
+  }
+
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 4.2 + 0.8;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.alpha = 1;
+      this.decay = Math.random() * 0.015 + 0.012;
+      this.gravity = 0.055;
+      this.friction = 0.965;
+      this.size = Math.random() * 2.2 + 1.2;
+      this.sparkle = Math.random() > 0.4;
+      this.sparklePhase = Math.random() * Math.PI;
+    }
+    update() {
+      this.vx *= this.friction;
+      this.vy *= this.friction;
+      this.vy += this.gravity;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.alpha -= this.decay;
+      this.sparklePhase += 0.25;
+    }
+    draw(context) {
+      if (this.alpha <= 0) return;
+      context.save();
+      let a = this.alpha;
+      if (this.sparkle) {
+        a *= 0.65 + 0.35 * Math.sin(this.sparklePhase);
+      }
+      context.globalAlpha = Math.max(0, Math.min(1, a));
+      context.beginPath();
+      context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      context.fillStyle = this.color;
+      context.shadowColor = this.color;
+      context.shadowBlur = 6;
+      context.fill();
+      context.restore();
+    }
+  }
+
+  function createBurst(x, y, palette) {
+    const count = Math.floor(Math.random() * 30 + 45);
+    for (let i = 0; i < count; i++) {
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      particles.push(new Particle(x, y, color));
+    }
+  }
+
+  function launchCracker(customX, customY) {
+    if (!width || !height) resize();
+    const palette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+    // Confine bursts to the upper sky above the palace domes (y: 12% to 40% of height)
+    const targetX = customX !== undefined ? customX : width * (0.2 + Math.random() * 0.6);
+    const targetY = customY !== undefined ? customY : height * (0.12 + Math.random() * 0.28);
+    const startX = targetX + (Math.random() - 0.5) * 80;
+    const startY = height * 0.75;
+    rockets.push(new Rocket(startX, startY, targetX, targetY, palette));
+  }
+
+  function loop() {
+    if (!isRunning) return;
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = rockets.length - 1; i >= 0; i--) {
+      const r = rockets[i];
+      r.update();
+      r.draw(ctx);
+      if (!r.alive) rockets.splice(i, 1);
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.update();
+      p.draw(ctx);
+      if (p.alpha <= 0) particles.splice(i, 1);
+    }
+
+    animId = requestAnimationFrame(loop);
+  }
+
+  function scheduleNextLaunch() {
+    if (!isRunning) return;
+    // Launch random sky bursts every 1.6 to 3 seconds
+    const delay = Math.random() * 1400 + 1600;
+    launchTimer = setTimeout(() => {
+      if (isRunning) {
+        launchCracker();
+        // Occasional double firework burst
+        if (Math.random() > 0.5) {
+          setTimeout(() => { if (isRunning) launchCracker(); }, 350);
+        }
+        scheduleNextLaunch();
+      }
+    }, delay);
+  }
+
+  window.initSkyCrackers = function() {
+    resize();
+    isRunning = true;
+    if (animId) cancelAnimationFrame(animId);
+    animId = requestAnimationFrame(loop);
+
+    // Initial grand celebratory salvo when doors swing open!
+    setTimeout(() => launchCracker(width * 0.3, height * 0.22), 700);
+    setTimeout(() => launchCracker(width * 0.7, height * 0.20), 1200);
+    setTimeout(() => launchCracker(width * 0.5, height * 0.16), 1800);
+
+    scheduleNextLaunch();
+  };
+
+  // Pause crackers when Page 1 is scrolled out of view to preserve battery & performance
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        isRunning = false;
+        if (animId) cancelAnimationFrame(animId);
+        if (launchTimer) clearTimeout(launchTimer);
+      } else if (introSection && introSection.classList.contains('opened')) {
+        if (!isRunning) {
+          isRunning = true;
+          animId = requestAnimationFrame(loop);
+          scheduleNextLaunch();
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(document.getElementById('intro'));
+  window.addEventListener('resize', resize, { passive: true });
+})();
+
+// Strict Door Lock: Ensure door page is completely unscrollable until button is pressed
+window.addEventListener('wheel', (e) => {
+  if (!doorsOpened) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+window.addEventListener('touchmove', (e) => {
+  if (!doorsOpened) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+window.addEventListener('keydown', (e) => {
+  if (!doorsOpened && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space', ' '].includes(e.key)) {
+    e.preventDefault();
+  }
+});
 
 
 
@@ -2113,8 +2590,178 @@ function shareWhatsApp(type) {
 }
 
 // ============================================================
-// 4. PETAL ENGINE REMOVED
-function showerFlowers() {}
+// SACRED MINUTE FLOWER SHOWER ENGINE (RAMAYAN PATH PAGE)
+// Delicate, fluttering rose, marigold & jasmine petals showering from top
+// ============================================================
+(function initRamayanFlowerShower() {
+  const canvas = document.getElementById('ramayanFlowerShower');
+  const section = document.getElementById('section-ramayan');
+  if (!canvas || !section) return;
+
+  const ctx = canvas.getContext('2d');
+  let animationFrameId = null;
+  let isActive = false;
+  let width = 0;
+  let height = 0;
+
+  function resize() {
+    const rect = section.getBoundingClientRect();
+    width = rect.width || window.innerWidth;
+    height = rect.height || window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  }
+
+  // Pre-configured delicate palette: Sacred Marigold, Rose, Jasmine
+  const PETAL_COLORS = [
+    '#f4728e', // Soft celebratory rose
+    '#ff4081', // Radiant rose pink
+    '#f8bbd0', // Delicate blush rose
+    '#ffa726', // Sacred marigold orange
+    '#ffb300', // Saffron gold marigold
+    '#ffd54f', // Warm amber petal
+    '#fff9c4', // Jasmine ivory floret
+    '#ffffff'  // Pure sacred mogra
+  ];
+
+  class MinutePetal {
+    constructor(isInitial = false) {
+      this.reset(isInitial);
+    }
+
+    reset(isInitial = false) {
+      this.x = Math.random() * width;
+      this.y = isInitial ? Math.random() * height : -15 - Math.random() * 25;
+      // Minute size: 3.5px to 8px
+      this.size = 3.5 + Math.random() * 4.8;
+      this.speedY = 0.85 + Math.random() * 1.35;
+      this.speedX = (Math.random() - 0.5) * 0.45;
+      this.swayAngle = Math.random() * Math.PI * 2;
+      this.swaySpeed = 0.02 + Math.random() * 0.035;
+      this.swayAmp = 0.6 + Math.random() * 0.9;
+      this.flipAngle = Math.random() * Math.PI * 2;
+      this.flipSpeed = 0.025 + Math.random() * 0.045;
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotationSpeed = (Math.random() - 0.5) * 0.035;
+      this.color = PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)];
+      this.type = Math.floor(Math.random() * 3); // 0: Rose petal, 1: Marigold petal, 2: Jasmine floret
+      this.opacity = 0.65 + Math.random() * 0.3;
+    }
+
+    update() {
+      this.y += this.speedY;
+      this.swayAngle += this.swaySpeed;
+      this.x += this.speedX + Math.sin(this.swayAngle) * this.swayAmp;
+      this.flipAngle += this.flipSpeed;
+      this.rotation += this.rotationSpeed;
+
+      if (this.y > height + 25 || this.x < -30 || this.x > width + 30) {
+        this.reset(false);
+      }
+    }
+
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation);
+      // 3D tumbling flip effect
+      ctx.scale(Math.cos(this.flipAngle), 1);
+      ctx.globalAlpha = this.opacity;
+
+      if (this.type === 0) {
+        // Delicate curved rose petal
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size);
+        ctx.bezierCurveTo(this.size * 0.85, -this.size * 0.3, this.size * 0.75, this.size * 0.85, 0, this.size);
+        ctx.bezierCurveTo(-this.size * 0.75, this.size * 0.85, -this.size * 0.85, -this.size * 0.3, 0, -this.size);
+        ctx.fill();
+      } else if (this.type === 1) {
+        // Golden elongated marigold petal
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.size * 0.45, this.size, 0, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Minute 5-petal jasmine floret
+        ctx.fillStyle = this.color;
+        const petRadius = this.size * 0.35;
+        const petDist = this.size * 0.55;
+        for (let i = 0; i < 5; i++) {
+          const a = (i * Math.PI * 2) / 5;
+          ctx.beginPath();
+          ctx.arc(Math.cos(a) * petDist, Math.sin(a) * petDist, petRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = '#ffd54f';
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size * 0.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+  }
+
+  // Count: 48 delicate minute petals
+  const petals = [];
+  const PETAL_COUNT = 48;
+
+  function initPetals() {
+    petals.length = 0;
+    for (let i = 0; i < PETAL_COUNT; i++) {
+      petals.push(new MinutePetal(true));
+    }
+  }
+
+  function loop() {
+    if (!isActive) return;
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < petals.length; i++) {
+      petals[i].update();
+      petals[i].draw();
+    }
+
+    animationFrameId = requestAnimationFrame(loop);
+  }
+
+  function start() {
+    if (isActive) return;
+    isActive = true;
+    resize();
+    if (petals.length === 0) initPetals();
+    loop();
+  }
+
+  function stop() {
+    isActive = false;
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+  }
+
+  // Trigger when Ramayan Path section is in view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        start();
+      } else {
+        stop();
+      }
+    });
+  }, { threshold: 0.12 });
+
+  observer.observe(section);
+
+  window.addEventListener('resize', () => {
+    if (isActive) resize();
+  });
+})();
 </script>
 <script>
 // Active navigation pill synchronization on scroll
@@ -2125,7 +2772,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.35
+    threshold: 0.25
   };
 
   const observer = new IntersectionObserver((entries) => {
